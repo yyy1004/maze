@@ -14,6 +14,10 @@ class GameManager:
         self.player = None
         self.walls = pygame.sprite.Group()
         self.stars = pygame.sprite.Group()
+
+        self.eat_stars_sound = pygame.mixer.Sound("static/sounds/eat_stars.wav")
+        self.eat_stars_sound.set_volume(0.3)
+
         self.stars_cnt = 0
         self.targets = pygame.sprite.Group()
 
@@ -75,6 +79,7 @@ class GameManager:
             self.player.crash()
         if pygame.sprite.spritecollide(self.player, self.stars, True, collided_circle):
             self.stars_cnt -= 1
+            self.eat_stars_sound.play()
 
     def update(self):
         self.stars.update()
