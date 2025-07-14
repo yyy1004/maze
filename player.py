@@ -2,6 +2,7 @@ import pygame
 import config
 import math
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, center_x, center_y, forward_angle):
         super().__init__()
@@ -82,9 +83,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += vy * self.delta_time
 
     def crash(self):
-        self.move(-1)
-        self.move_velocity *= -1
-        self.rotate_velocity *= -1
+        print("撞了")
+
+        # self.move(-1)
+        # self.move_velocity *= -1
+        # self.rotate_velocity *= -1
 
     def update(self):
         self.update_delta_time()

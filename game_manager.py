@@ -37,12 +37,15 @@ class GameManager:
 
             center_x, center_y, forward_angle = map(int, fin.readline().split())
             self.load_player(center_x, center_y, forward_angle)
+
+    #  检测碰撞
     def check_collided(self):
-        if pygame.sprite.spritecollide(self.player, self.walls, False, collided_rect):
+        if pygame.sprite.spritecollide(self.player, self.walls, False):
             self.player.crash()
 
     def update(self):
         self.walls.update()
+        self.check_collided()
         self.walls.draw(self.screen)
         self.player.update()
         self.screen.blit(self.player.image, self.player.rect)
