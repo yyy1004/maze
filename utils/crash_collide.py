@@ -24,3 +24,10 @@ def collided_rect(a, b):
             return True
 
     return False
+def collided_circle(a, b):
+    x1, y1 = a.rect.center
+    x2, y2 = b.rect.center
+    dx, dy = x1 - x2, y1 - y2
+    if math.sqrt(dx * dx + dy * dy) < 50:
+        return True
+    return False

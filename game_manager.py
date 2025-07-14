@@ -3,7 +3,7 @@ from wall import Wall
 from player import Player
 from star import  Star
 from target import Target
-from utils.crash_collide import collided_rect
+from utils.crash_collide import collided_rect, collided_circle
 
 
 class GameManager:
@@ -73,6 +73,8 @@ class GameManager:
     def check_collided(self):
         if pygame.sprite.spritecollide(self.player, self.walls, False, collided_rect):
             self.player.crash()
+        if pygame.sprite.spritecollide(self.player, self.stars, True, collided_circle):
+            self.stars_cnt -= 1
 
     def update(self):
         self.stars.update()
