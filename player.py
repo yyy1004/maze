@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
         self.rotate_velocity = 0 # 转动速度
         self.rotate_velocity_limit = 140
 
+        self.crash_sound = pygame.mixer.Sound("static/sounds/crash.mp3")
+        self.crash_sound.set_volume(0.2)
+
     def update_delta_time(self):
         cur_time = pygame.time.get_ticks()
         self.delta_time = (cur_time - self.last_time) / 1000  # 单位改成秒
@@ -86,6 +89,8 @@ class Player(pygame.sprite.Sprite):
             self.rotate(direction)
 
     def crash(self):
+        self.crash_sound.play()
+
         self.move(-1)  # 退回来
         if self.move_velocity >= 0:
             self.move_velocity = min(-self.move_velocity, -100)
