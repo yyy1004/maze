@@ -25,7 +25,7 @@ class GameManager:
             self.player.kill()
         self.player = Player(center_x, center_y, forward_angle)
 
-    def load(self):
+    def load(self):  # 加载地图信息
         with open("static/maps/level%d.txt" % self.level, 'r') as fin:
             walls_cnt = int(fin.readline())
             walls = []

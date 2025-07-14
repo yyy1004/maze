@@ -36,6 +36,10 @@ class Player(pygame.sprite.Sprite):
 
         self.crash_sound = pygame.mixer.Sound("static/sounds/crash.mp3")
         self.crash_sound.set_volume(0.2)
+        self.move_sound = pygame.mixer.Sound("static/sounds/move.mp3")
+        self.move_sound.set_volume(0.5)
+        self.move_voice_channel = pygame.mixer.Channel(7)  # 放在一个声道里
+
 
     def update_delta_time(self):
         cur_time = pygame.time.get_ticks()
@@ -49,11 +53,18 @@ class Player(pygame.sprite.Sprite):
             self.move_velocity += self.move_acc * self.delta_time
             self.move_velocity = min(self.move_velocity, self.move_velocity_limit)
 
+            if not self.move_voice_channel.get_busy():
+                self.move_voice_channel.play(self.move_sound)
         elif key_pressed[pygame.K_s]:
             self.move_velocity -= self.move_acc * self.delta_time
             self.move_velocity = max(self.move_velocity, -self.move_velocity_limit)
+
+            if not self.move_voice_channel.get_busy():
+                self.move_voice_channel.play(self.move_sound)
         else:
             self.move_velocity = int(self.move_velocity * self.friction)
+            if  self.move_voice_channel.get_busy():
+                self.move_voice_channel.stop()
 
         if key_pressed[pygame.K_d]:
             self.rotate_velocity = self.rotate_velocity_limit
