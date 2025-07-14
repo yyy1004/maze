@@ -87,7 +87,10 @@ class Player(pygame.sprite.Sprite):
 
     def crash(self):
         self.move(-1)  # 退回来
-        self.move_velocity *= -1
+        if self.move_velocity >= 0:
+            self.move_velocity = min(-self.move_velocity, -100)
+        else:
+            self.move_velocity = max(self.move_velocity, 100)
         self.rotate_velocity *= -1
 
     def update(self):

@@ -1,6 +1,7 @@
 import pygame
 from wall import Wall
 from player import Player
+from utils.crash_collide import collided_rect
 
 
 class GameManager:
@@ -40,7 +41,7 @@ class GameManager:
 
     #  检测碰撞
     def check_collided(self):
-        if pygame.sprite.spritecollide(self.player, self.walls, False):
+        if pygame.sprite.spritecollide(self.player, self.walls, False, collided_rect):
             self.player.crash()
 
     def update(self):
