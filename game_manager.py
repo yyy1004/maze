@@ -4,6 +4,7 @@ from player import Player
 from star import  Star
 from target import Target
 from utils.crash_collide import collided_rect, collided_circle
+import os
 
 
 class GameManager:
@@ -30,6 +31,14 @@ class GameManager:
         for x, y, width, height in walls:
             wall = Wall(x, y, width, height)
             wall.add(self.walls)
+
+    def next_level(self):
+        self.level += 1
+        if not os.path.isfile("static/maps/level%d.txt" % self.level):
+            return False  # 表示没有下一关
+        self.load()
+        return True  # 表示已经加载了下一关
+
     def load_stars(self, stars):
         self.stars.empty()
         for x, y in stars:
@@ -41,12 +50,11 @@ class GameManager:
         for x, y in targets:
             target = Target(x, y)
             target.add(self.targets)
+
     def load_player(self, center_x, center_y, forward_angle):
         if self.player:
             self.player.kill()
         self.player = Player(center_x, center_y, forward_angle)
-
-
 
     def load(self):  # 加载地图信息
         with open("static/maps/level%d.txt" % self.level, 'r') as fin:
@@ -87,6 +95,7 @@ class GameManager:
                 self.success_sound.play()
                 return True  # 获胜
         return False
+
     def update(self):
         self.stars.update()
         self.stars.draw(self.screen)
@@ -94,9 +103,9 @@ class GameManager:
         self.targets.draw(self.screen)
 
         self.walls.update()
-        self.check_collided()
+        success =  self.check_collided()
         self.walls.draw(self.screen)
         self.player.update()
         self.screen.blit(self.player.image, self.player.rect)
-
+        return success
 
