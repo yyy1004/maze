@@ -73,7 +73,7 @@ class Player(pygame.sprite.Sprite):
     def move(self, direction=1):
         # self.rect.x += self.move_velocity * self.delta_time
 
-        if abs(self.move_velocity) > 10:
+        if direction == 1 and abs(self.move_velocity) > 10:
             self.rotate(direction)
 
         vx = self.move_velocity * math.cos(math.pi * self.forward_angle / 180) * direction
@@ -81,6 +81,9 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += vx * self.delta_time
         self.rect.y += vy * self.delta_time
+
+        if direction == -1 and abs(self.move_velocity) > 10: # 退回来的时候 先移动再转和前面相反
+            self.rotate(direction)
 
     def crash(self):
         self.move(-1)  # 退回来
