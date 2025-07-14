@@ -75,14 +75,15 @@ class GameManager:
             self.player.crash()
 
     def update(self):
+        self.stars.update()
+        self.stars.draw(self.screen)
+        self.targets.update()
+        self.targets.draw(self.screen)
+
         self.walls.update()
         self.check_collided()
         self.walls.draw(self.screen)
         self.player.update()
         self.screen.blit(self.player.image, self.player.rect)
 
-        self.stars.update()
-        self.stars.draw(self.screen)
-        self.targets.update()
-        self.targets.draw(self.screen)
 
