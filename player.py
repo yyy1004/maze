@@ -59,8 +59,8 @@ class Player(pygame.sprite.Sprite):
         else:
             self.rotate_velocity = 0
 
-    def rotate(self):
-        self.forward_angle += self.rotate_velocity * self.delta_time
+    def rotate(self, direction=1):
+        self.forward_angle += self.rotate_velocity * self.delta_time * direction
 
         self.image = pygame.transform.scale(self.image_source, (self.width, self.height))
         self.image = pygame.transform.rotate(self.image, -self.forward_angle)
@@ -74,7 +74,7 @@ class Player(pygame.sprite.Sprite):
         # self.rect.x += self.move_velocity * self.delta_time
 
         if abs(self.move_velocity) > 10:
-            self.rotate()
+            self.rotate(direction)
 
         vx = self.move_velocity * math.cos(math.pi * self.forward_angle / 180) * direction
         vy = self.move_velocity * math.sin(math.pi * self.forward_angle / 180) * direction
@@ -83,11 +83,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += vy * self.delta_time
 
     def crash(self):
-        print("撞了")
-
-        # self.move(-1)
-        # self.move_velocity *= -1
-        # self.rotate_velocity *= -1
+        self.move(-1)  # 退回来
+        self.move_velocity *= -1
+        self.rotate_velocity *= -1
 
     def update(self):
         self.update_delta_time()
