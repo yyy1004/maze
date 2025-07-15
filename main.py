@@ -28,8 +28,8 @@ while running:
         if pygame.time.get_ticks() - success_time > 2000:  # 如果获胜后已经等待了2秒，则加载下一关
             has_next = game_manager.next_level()
             if not has_next:  # 如果没有下一关，则游戏结束
-                success_finished = True
-                continue
+                # success_finished = True
+                break
             success_time = -1  # 将获胜时间清空
 
     if game_manager.update():
