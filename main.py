@@ -11,6 +11,10 @@ clock = pygame.time.Clock()
 
 success_time = -1  # -1表示当前没有获胜，否则表示获胜的时刻
 
+pygame.mixer.music.load("static/sounds/bgm.wav")
+pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.play(-1)  # 参数-1表示循环播放
+
 # player = Player()
 game_manager = GameManager(screen, 1)
 
