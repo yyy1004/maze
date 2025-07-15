@@ -4,7 +4,7 @@ import pygame
 class Star(pygame.sprite.Sprite):
     def __init__(self, center_x, center_y):
         super().__init__()
-        self.image_source = pygame.image.load("static/images/star.png")
+        self.image_source = pygame.image.load("static/images/star3.png")
         self.image = pygame.transform.scale(self.image_source, (50, 50))
         self.image.set_colorkey((0, 0, 0))
         # pygame.Surface.set_colorkey(self.image, (0, 0, 0))
